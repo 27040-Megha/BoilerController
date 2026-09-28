@@ -67,7 +67,7 @@ namespace BoilerSystemController.ApplicationLayer.Service
         {
             if (!this.CheckBoilerReady())
             {
-                return new Result(false, $"Boiler is not in ready state");
+                return new Result(false, $"Boiler is not in ready state, Toggle the switch if opened or Reset lockout");
             }
             else if (!this.CheckSwitchOn())
             {
@@ -98,18 +98,24 @@ namespace BoilerSystemController.ApplicationLayer.Service
             return this._boilerSystem.InterlockSwitchStatus == SwitchStatus.Closed;
         }
 
-        public void StopBoilerSequence()
+        public Result StopBoilerSequence()
         {
+            if (this._boilerSystem.BoilerSystemStatus == BoilerStatus.Lockout)
+            {
+                return new Result(false, $"The system is already in lockout state!");
+            }
+
             if (this._boilerSystem.BoilerSystemStatus == BoilerStatus.Operational)
             {
                 this._boilerSystem.BoilerSystemStatus = BoilerStatus.Ready;
-                this.PublishEvent(this._boilerSystem);
             }
             else
             {
                 this._boilerSystem.BoilerSystemStatus = BoilerStatus.Lockout;
-                this.PublishEvent(this._boilerSystem);
             }
+
+            this.PublishEvent(this._boilerSystem);
+            return new Result(true, $"The boiler system has been successfully stopped!");
         }
 
         public Result SimulateBoilerError()

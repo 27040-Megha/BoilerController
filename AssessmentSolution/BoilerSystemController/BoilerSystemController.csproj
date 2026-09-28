@@ -46,18 +46,31 @@
     <Compile Include="ApplicationLayer\Interface\IEventLogRepository.cs" />
     <Compile Include="ApplicationLayer\Service\BoilerSystemService.cs" />
     <Compile Include="Domain\Enums\BoilerStatus.cs" />
+    <Compile Include="Domain\Enums\MenuOptions.cs" />
     <Compile Include="Domain\Enums\SwitchStatus.cs" />
     <Compile Include="Domain\Model\BoilerSystem.cs" />
     <Compile Include="Domain\Model\Result.cs" />
     <Compile Include="InfrastructureLayer\EventLogRepository.cs" />
     <Compile Include="PresentationLayer\Helper\InputValidator.cs" />
+    <Compile Include="PresentationLayer\Helper\TextColor.cs" />
     <Compile Include="PresentationLayer\View\ConsoleOperations.cs" />
+    <Compile Include="PresentationLayer\View\DisplayResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisplayResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayer\View\NotificationOperator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="PresentationLayer\View\DisplayResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DisplayResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
