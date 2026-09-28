@@ -13,11 +13,10 @@ namespace BoilerSystemController.ApplicationLayer.Service
     {
         private BoilerSystem _boilerSystem;
 
-        public Action<BoilerSystem> OnStatusChanged;
-
         public BoilerSystemService()
         {
             _boilerSystem = new BoilerSystem(1, BoilerStatus.Lockout, SwitchStatus.Open);
+            EventLogService.PublishEvent(new EventLog(DateTime.Now, "Log:", "Boiler Initialized"));
         }
 
         public async Task HandleBoilerCycle()
@@ -46,21 +45,17 @@ namespace BoilerSystemController.ApplicationLayer.Service
             switch (_boilerSystem.BoilerSystemStatus)
             {
                 case BoilerStatus.PrePurge:
+                    EventLogService.PublishEvent(new EventLog(DateTime.Now, "Log:", $"{this._boilerSystem.BoilerSystemStatus} completed"));
                     _boilerSystem.BoilerSystemStatus = BoilerStatus.Ignition;
-                    this.PublishEvent(this._boilerSystem);
                     break;
                 case BoilerStatus.Ignition:
+                    EventLogService.PublishEvent(new EventLog(DateTime.Now, "Log:", $"{this._boilerSystem.BoilerSystemStatus} completed"));
                     _boilerSystem.BoilerSystemStatus = BoilerStatus.Operational;
-                    this.PublishEvent(this._boilerSystem);
+                    EventLogService.PublishEvent(new EventLog(DateTime.Now, "Log:", $"Boiler {this._boilerSystem.BoilerSystemStatus}"));
                     break;
                 default:
                     break;
             }
-        }
-
-        public void PublishEvent(BoilerSystem boilerSystem)
-        {
-            OnStatusChanged?.Invoke(boilerSystem);
         }
 
         public Result StartBoilerSequence()
@@ -75,7 +70,6 @@ namespace BoilerSystemController.ApplicationLayer.Service
             }
 
             this._boilerSystem.BoilerSystemStatus = BoilerStatus.PrePurge;
-            this.PublishEvent(this._boilerSystem);
             try
             {
                 _ = HandleBoilerCycle();
@@ -114,7 +108,6 @@ namespace BoilerSystemController.ApplicationLayer.Service
                 this._boilerSystem.BoilerSystemStatus = BoilerStatus.Lockout;
             }
 
-            this.PublishEvent(this._boilerSystem);
             return new Result(true, $"The boiler system has been successfully stopped!");
         }
 
@@ -126,7 +119,7 @@ namespace BoilerSystemController.ApplicationLayer.Service
             }
 
             this._boilerSystem.BoilerSystemStatus = BoilerStatus.Lockout;
-            this.PublishEvent(this._boilerSystem);
+            EventLogService.PublishEvent(new EventLog(DateTime.Now, "Error:", $"System is in {this._boilerSystem.BoilerSystemStatus}"));
             return new Result(true, $"Successfully simulated boiler error!");
         }
 
@@ -141,7 +134,7 @@ namespace BoilerSystemController.ApplicationLayer.Service
                 this._boilerSystem.InterlockSwitchStatus = SwitchStatus.Closed;
             }
 
-            this.PublishEvent(this._boilerSystem);
+            EventLogService.PublishEvent(new EventLog(DateTime.Now, "Log:", $"Interlock switch toggled to {this._boilerSystem.InterlockSwitchStatus}"));
         }
 
         public Result ResetLockOut()
@@ -152,7 +145,7 @@ namespace BoilerSystemController.ApplicationLayer.Service
             }
 
             this._boilerSystem.BoilerSystemStatus = BoilerStatus.Ready;
-            this.PublishEvent(this._boilerSystem);
+            EventLogService.PublishEvent(new EventLog(DateTime.Now, "Log:", $"Boiler Status changed to {this._boilerSystem.BoilerSystemStatus}"));
             return new Result(true, $"Lockout sucessfully reset!");
         }
     }

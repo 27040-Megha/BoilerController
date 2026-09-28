@@ -11,7 +11,7 @@ namespace BoilerSystemController
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
             var boilerSystemService = new BoilerSystemService();
             var consoleOperator = new ConsoleOperations(boilerSystemService);
-            boilerSystemService.OnStatusChanged += NotificationOperator.DisplayNotification;
+            EventLogService.OnStatusChanged += NotificationOperator.DisplayNotification;
             consoleOperator.Run();
         }
 

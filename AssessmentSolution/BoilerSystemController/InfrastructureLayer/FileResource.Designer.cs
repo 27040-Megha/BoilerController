@@ -22,14 +22,14 @@ namespace BoilerSystemController.InfrastructureLayer {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class FilePath {
+    internal class FileResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal FilePath() {
+        internal FileResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace BoilerSystemController.InfrastructureLayer {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BoilerSystemController.InfrastructureLayer.FilePath", typeof(FilePath).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BoilerSystemController.InfrastructureLayer.FileResource", typeof(FileResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,20 @@ namespace BoilerSystemController.InfrastructureLayer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Timestamp, Event, Event Data.
+        /// </summary>
+        internal static string FileHeader {
+            get {
+                return ResourceManager.GetString("FileHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BoilerLog.txt.
         /// </summary>
-        internal static string LogFile {
+        internal static string FilePath {
             get {
-                return ResourceManager.GetString("LogFile", resourceCulture);
+                return ResourceManager.GetString("FilePath", resourceCulture);
             }
         }
     }

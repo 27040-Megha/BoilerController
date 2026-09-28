@@ -12,7 +12,7 @@ namespace BoilerSystemController.InfrastructureLayer
         {
             lock (_fileLock)
             {
-                FileHandlingService.WriteFile(FilePath.LogFile, eventLog);
+                FileHandlingService.WriteFile(FileResource.FilePath, eventLog);
             }
         }
 
@@ -20,7 +20,7 @@ namespace BoilerSystemController.InfrastructureLayer
         {
             lock(_fileLock)
             {
-                return FileHandlingService.ReadFile(FilePath.LogFile);
+                return FileHandlingService.ReadFile(FileResource.FilePath);
             }
         }
     }

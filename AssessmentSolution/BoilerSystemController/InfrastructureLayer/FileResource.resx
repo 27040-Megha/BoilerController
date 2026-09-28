@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LogFile" xml:space="preserve">
+  <data name="FileHeader" xml:space="preserve">
+    <value>Timestamp, Event, Event Data</value>
+  </data>
+  <data name="FilePath" xml:space="preserve">
     <value>BoilerLog.txt</value>
   </data>
 </root>

@@ -10,7 +10,7 @@ namespace BoilerSystemController.InfrastructureLayer
     {
         public static List<EventLog> ReadFile(string filePath)
         {
-            if (!File.Exists(filePath))
+            if (!CheckFileExists(filePath))
             {
                 return new List<EventLog>();
             }
@@ -27,8 +27,18 @@ namespace BoilerSystemController.InfrastructureLayer
 
         public static void WriteFile(string filePath, EventLog eventLog)
         {
+            if (!CheckFileExists(filePath))
+            {
+                File.WriteAllText(filePath, FileResource.FileHeader);
+            }
+
             string logToSave = SerializeCSV(eventLog);
             File.AppendAllLines(filePath, new [] { logToSave });
+        }
+
+        private static bool CheckFileExists(string filePath)
+        {
+            return File.Exists(filePath);
         }
 
         private static string SerializeCSV(EventLog eventLog)

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ApplicationLayer\Interface\IEventLogRepository.cs" />
     <Compile Include="ApplicationLayer\Service\BoilerSystemService.cs" />
+    <Compile Include="ApplicationLayer\Service\EventLogService.cs" />
     <Compile Include="Domain\Enums\BoilerStatus.cs" />
     <Compile Include="Domain\Enums\MenuOptions.cs" />
     <Compile Include="Domain\Enums\SwitchStatus.cs" />
@@ -53,10 +54,10 @@
     <Compile Include="Domain\Model\Result.cs" />
     <Compile Include="InfrastructureLayer\EventLogRepository.cs" />
     <Compile Include="InfrastructureLayer\FileHandlingService.cs" />
-    <Compile Include="InfrastructureLayer\FilePath.Designer.cs">
+    <Compile Include="InfrastructureLayer\FileResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FilePath.resx</DependentUpon>
+      <DependentUpon>FileResource.resx</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayer\Helper\InputValidator.cs" />
     <Compile Include="PresentationLayer\Helper\TextColor.cs" />
@@ -74,9 +75,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="InfrastructureLayer\FilePath.resx">
+    <EmbeddedResource Include="InfrastructureLayer\FileResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>FilePath.Designer.cs</LastGenOutput>
+      <LastGenOutput>FileResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayer\View\DisplayResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
