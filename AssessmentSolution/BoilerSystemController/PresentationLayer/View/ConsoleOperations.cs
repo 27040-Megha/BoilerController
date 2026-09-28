@@ -49,36 +49,41 @@ namespace BoilerSystemController.PresentationLayer.View
                 }
 
                 menuChoice = (MenuOptions)choice;
-                switch(menuChoice)
-                {
-                    case MenuOptions.StartBoilerSequence:
-                        this.StartBoilerSystem();
-                        break;
-                    case MenuOptions.StopBoilerSequence:
-                        this.StopBoilerSystem();
-                        break;
-                    case MenuOptions.SimulateBoilerError:
-                        this.SimulateBoilerSystemError();
-                        break;
-                    case MenuOptions.ToggleSwitch:
-                        this.ToggleInterlockSwitch();
-                        break;
-                    case MenuOptions.ResetLockout:
-                        this.ResetSystemLockout();
-                        break;
-                    case MenuOptions.ViewEventLog:
-                        this.DisplayEventLog();
-                        break;
-                    case MenuOptions.Exit:
-                        TextColor.WriteColoredLine(DisplayResource.ExitMessage, ConsoleColor.Cyan);
-                        break;
-                    default:
-                        TextColor.WriteColoredLine(DisplayResource.InvalidChoice, ConsoleColor.Red);
-                        break;
-                }
-                this.WaitAndClearConsole();
+                this.HandleSwitchCase(menuChoice);
+                // this.WaitAndClearConsole();
             }
             while (menuChoice != MenuOptions.Exit);
+        }
+
+        private void HandleSwitchCase(MenuOptions menuChoice)
+        {
+            switch (menuChoice)
+            {
+                case MenuOptions.StartBoilerSequence:
+                    this.StartBoilerSystem();
+                    break;
+                case MenuOptions.StopBoilerSequence:
+                    this.StopBoilerSystem();
+                    break;
+                case MenuOptions.SimulateBoilerError:
+                    this.SimulateBoilerSystemError();
+                    break;
+                case MenuOptions.ToggleSwitch:
+                    this.ToggleInterlockSwitch();
+                    break;
+                case MenuOptions.ResetLockout:
+                    this.ResetSystemLockout();
+                    break;
+                case MenuOptions.ViewEventLog:
+                    this.DisplayEventLog();
+                    break;
+                case MenuOptions.Exit:
+                    TextColor.WriteColoredLine(DisplayResource.ExitMessage, ConsoleColor.Cyan);
+                    break;
+                default:
+                    TextColor.WriteColoredLine(DisplayResource.InvalidChoice, ConsoleColor.Red);
+                    break;
+            }
         }
 
         private void WaitAndClearConsole()
