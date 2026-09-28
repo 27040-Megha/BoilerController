@@ -152,4 +152,7 @@ MENU
   <data name="PromptChoice" xml:space="preserve">
     <value>Enter your choice (1-7):</value>
   </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>BOILER CONTROLLER INITIALIZED</value>
+  </data>
 </root>

@@ -148,5 +148,14 @@ namespace BoilerSystemController.PresentationLayer.View {
                 return ResourceManager.GetString("PromptChoice", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BOILER CONTROLLER INITIALIZED.
+        /// </summary>
+        internal static string WelcomeMessage {
+            get {
+                return ResourceManager.GetString("WelcomeMessage", resourceCulture);
+            }
+        }
     }
 }

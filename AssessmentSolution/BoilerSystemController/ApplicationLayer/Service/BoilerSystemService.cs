@@ -15,7 +15,7 @@ namespace BoilerSystemController.ApplicationLayer.Service
         /// <summary>
         /// Event that will be raised when switch or boiler status change 
         /// </summary>
-        public Action<EventLog> OnStatusChanged;
+        public static Action<EventLog> OnStatusChanged;
 
         /// <summary>
         /// Initializes Boiler System with default status and publishes the event

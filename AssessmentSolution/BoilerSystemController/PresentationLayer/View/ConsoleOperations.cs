@@ -32,6 +32,7 @@ namespace BoilerSystemController.PresentationLayer.View
         /// </summary>
         public void Run()
         {
+            TextColor.WriteColoredLine(DisplayResource.WelcomeMessage, ConsoleColor.Yellow);
             this.HandleMenu();
         }
 

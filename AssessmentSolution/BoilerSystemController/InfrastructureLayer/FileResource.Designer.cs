@@ -61,7 +61,8 @@ namespace BoilerSystemController.InfrastructureLayer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Timestamp, Event, Event Data.
+        ///   Looks up a localized string similar to Timestamp, Event, Event Data
+        ///.
         /// </summary>
         internal static string FileHeader {
             get {

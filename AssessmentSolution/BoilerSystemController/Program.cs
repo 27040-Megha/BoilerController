@@ -19,9 +19,9 @@ namespace BoilerSystemController
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
             var eventLogRepository = new EventLogRepository();
             var eventLogService = new EventLogService(eventLogRepository);
+            BoilerSystemService.OnStatusChanged += NotificationOperator.DisplayNotification;
+            BoilerSystemService.OnStatusChanged += eventLogService.WriteLogToFile;
             var boilerSystemService = new BoilerSystemService();
-            boilerSystemService.OnStatusChanged += NotificationOperator.DisplayNotification;
-            boilerSystemService.OnStatusChanged += eventLogService.WriteLogToFile;
             var consoleOperator = new ConsoleOperations(boilerSystemService, eventLogService);
             consoleOperator.Run();
         }
