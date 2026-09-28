@@ -7,18 +7,29 @@ using BoilerSystemController.PresentationLayer.Helper;
 
 namespace BoilerSystemController.PresentationLayer.View
 {
+    /// <summary>
+    /// Interacts with user
+    /// </summary>
     public class ConsoleOperations
     {
         private readonly BoilerSystemService _boilerSystemService;
 
         private readonly EventLogService _eventlogService;
 
+        /// <summary>
+        /// Initializes Service objects
+        /// </summary>
+        /// <param name="boilerSystemService">BoilerSystem service object</param>
+        /// <param name="eventLogService">EventLog service object</param>
         public ConsoleOperations(BoilerSystemService boilerSystemService, EventLogService eventLogService)
         {
             this._boilerSystemService = boilerSystemService;
             this._eventlogService = eventLogService;
         }
 
+        /// <summary>
+        /// Initial method of application: Starts the application
+        /// </summary>
         public void Run()
         {
             this.HandleMenu();

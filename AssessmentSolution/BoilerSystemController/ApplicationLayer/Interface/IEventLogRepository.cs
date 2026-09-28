@@ -8,8 +8,16 @@ namespace BoilerSystemController.ApplicationLayer.Interface
     /// </summary>
     public interface IEventLogRepository
     {
+        /// <summary>
+        /// Adds log messages to the .txt file in csv format
+        /// </summary>
+        /// <param name="eventLog">Eventlog objec to be written</param>
         void AddLogMessage(EventLog eventLog);
 
-        List<EventLog> FetchAllLogs();
+        /// <summary>
+        /// Returns all logs from the log file
+        /// </summary>
+        /// <returns>IEnumerable collection of EventLog</returns>
+        IEnumerable<EventLog> FetchAllLogs();
     }
 }

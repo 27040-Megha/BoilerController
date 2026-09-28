@@ -6,8 +6,16 @@ using BoilerSystemController.Domain.Model;
 
 namespace BoilerSystemController.InfrastructureLayer
 {
+    /// <summary>
+    /// Helper class for csv file handling
+    /// </summary>
     public static class FileHandlingService
     {
+        /// <summary>
+        /// Checks if file exists, if yes returns the event logs as a list, otherwise returns an empty list.
+        /// </summary>
+        /// <param name="filePath">File Path</param>
+        /// <returns>List of event log objects</returns>
         public static List<EventLog> ReadFile(string filePath)
         {
             if (!CheckFileExists(filePath))
@@ -25,6 +33,12 @@ namespace BoilerSystemController.InfrastructureLayer
             return eventLogs;
         }
 
+        /// <summary>
+        /// Checks if a file exists, if yes, Appends the new EventLog object
+        /// Otherwise creates a new file, and adds the file header
+        /// </summary>
+        /// <param name="filePath">File path</param>
+        /// <param name="eventLog">EventLog object to be logged</param>
         public static void WriteFile(string filePath, EventLog eventLog)
         {
             if (!CheckFileExists(filePath))

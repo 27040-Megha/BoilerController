@@ -120,6 +120,9 @@
   <data name="EventLogHeading" xml:space="preserve">
     <value>Event Logs for the Boiler System Controller</value>
   </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>Exception caught: {0}</value>
+  </data>
   <data name="ExitMessage" xml:space="preserve">
     <value>Exiting the Application, Bye!</value>
   </data>

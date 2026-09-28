@@ -12,14 +12,23 @@ namespace BoilerSystemController.ApplicationLayer.Service
     {
         private BoilerSystem _boilerSystem;
 
+        /// <summary>
+        /// Event that will be raised when switch or boiler status change 
+        /// </summary>
         public Action<EventLog> OnStatusChanged;
 
+        /// <summary>
+        /// Initializes Boiler System with default status and publishes the event
+        /// </summary>
         public BoilerSystemService()
         {
             _boilerSystem = new BoilerSystem(1, BoilerStatus.Lockout, SwitchStatus.Open);
             PublishEvent(new EventLog(DateTime.Now, "Log:", "Boiler Initialized"));
         }
 
+        /// <summary>
+        /// Uses a Timer to handle the Boiler System's cycle
+        /// </summary>
         public void HandleBoilerCycle()
         {
             var timer = new System.Timers.Timer();
@@ -36,16 +45,12 @@ namespace BoilerSystemController.ApplicationLayer.Service
             });
         }
 
-        public void PublishEvent(EventLog eventLog)
-        {
-            OnStatusChanged?.Invoke(eventLog);
-        }
 
-        private bool CanBoilerCycleStop()
-        {
-            return this._boilerSystem.BoilerSystemStatus == BoilerStatus.Operational || this._boilerSystem.BoilerSystemStatus == BoilerStatus.Lockout || this._boilerSystem.BoilerSystemStatus == BoilerStatus.Ready;
-        }
-
+        /// <summary>
+        /// Subscribed to the Timer's Elapsed event
+        /// Will be notified whenever timer is elapsed (Every 10 secs) 
+        /// Changes the status and calls the PublishEvent to publish the event
+        /// </summary>
         public void ChangeBoilerStatus()
         {
             switch (_boilerSystem.BoilerSystemStatus)
@@ -64,6 +69,19 @@ namespace BoilerSystemController.ApplicationLayer.Service
             }
         }
 
+        /// <summary>
+        /// Publishes the event when status changes, which the subscribers will be notified
+        /// </summary>
+        /// <param name="eventLog">EventLog object</param>
+        public void PublishEvent(EventLog eventLog)
+        {
+            OnStatusChanged?.Invoke(eventLog);
+        }
+
+        /// <summary>
+        /// Starts the Boiler Sequence only when both switch is On (Closed state) and Boiler is in Ready State
+        /// </summary>
+        /// <returns>Result Object</returns>
         public Result StartBoilerSequence()
         {
             if (!this.CheckBoilerReady())
@@ -80,16 +98,13 @@ namespace BoilerSystemController.ApplicationLayer.Service
             return new Result(true, $"Boiler Sequence started successfully!");
         }
 
-        private bool CheckBoilerReady()
-        {
-            return this._boilerSystem.BoilerSystemStatus == BoilerStatus.Ready;
-        }
-
-        private bool CheckSwitchOn()
-        {
-            return this._boilerSystem.InterlockSwitchStatus == SwitchStatus.Closed;
-        }
-
+        /// <summary>
+        /// Stops the boiler system
+        /// If System is already stopped (Lockout state), Return false
+        /// If system is in operational state, the system goes to Ready state when stopped
+        /// When system is in other states (Pre-Purge or Ignition), the system goes to Lockout state when stopped
+        /// </summary>
+        /// <returns>Result Object</returns>
         public Result StopBoilerSequence()
         {
             if (this._boilerSystem.BoilerSystemStatus == BoilerStatus.Lockout)
@@ -109,6 +124,11 @@ namespace BoilerSystemController.ApplicationLayer.Service
             return new Result(true, $"The boiler system has been successfully stopped!");
         }
 
+        /// <summary>
+        /// Can simulate error only when the Boiler System is in Operational System.
+        /// Simulate Boiler error - Change the BoilerStatus to Lockout and publishes the event
+        /// </summary>
+        /// <returns></returns>
         public Result SimulateBoilerError()
         {
             if (this._boilerSystem.BoilerSystemStatus != BoilerStatus.Operational)
@@ -121,6 +141,9 @@ namespace BoilerSystemController.ApplicationLayer.Service
             return new Result(true, $"Successfully simulated boiler error!");
         }
 
+        /// <summary>
+        /// Toggles switch and pusblishes event
+        /// </summary>
         public void ToggleSwitch()
         {
             if (this._boilerSystem.InterlockSwitchStatus == SwitchStatus.Closed)
@@ -135,6 +158,11 @@ namespace BoilerSystemController.ApplicationLayer.Service
             PublishEvent(new EventLog(DateTime.Now, "Log:", $"Interlock switch toggled to {this._boilerSystem.InterlockSwitchStatus}"));
         }
 
+        /// <summary>
+        /// Changes the Boiler System's status to Ready
+        /// Reset can only be done when the switch is On (Closed) state
+        /// </summary>
+        /// <returns></returns>
         public Result ResetLockOut()
         {
             if (this._boilerSystem.InterlockSwitchStatus == SwitchStatus.Open)
@@ -145,6 +173,21 @@ namespace BoilerSystemController.ApplicationLayer.Service
             this._boilerSystem.BoilerSystemStatus = BoilerStatus.Ready;
             PublishEvent(new EventLog(DateTime.Now, "Log:", $"Boiler Status changed to {this._boilerSystem.BoilerSystemStatus}"));
             return new Result(true, $"Lockout sucessfully reset!");
+        }
+
+        private bool CanBoilerCycleStop()
+        {
+            return this._boilerSystem.BoilerSystemStatus == BoilerStatus.Operational || this._boilerSystem.BoilerSystemStatus == BoilerStatus.Lockout || this._boilerSystem.BoilerSystemStatus == BoilerStatus.Ready;
+        }
+
+        private bool CheckBoilerReady()
+        {
+            return this._boilerSystem.BoilerSystemStatus == BoilerStatus.Ready;
+        }
+
+        private bool CheckSwitchOn()
+        {
+            return this._boilerSystem.InterlockSwitchStatus == SwitchStatus.Closed;
         }
     }
 }

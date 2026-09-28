@@ -70,6 +70,15 @@ namespace BoilerSystemController.PresentationLayer.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exception caught: {0}.
+        /// </summary>
+        internal static string ExceptionMessage {
+            get {
+                return ResourceManager.GetString("ExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exiting the Application, Bye!.
         /// </summary>
         internal static string ExitMessage {

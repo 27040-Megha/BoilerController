@@ -20,10 +20,19 @@ namespace BoilerSystemController.Domain.Model
             this.InterlockSwitchStatus = switchStatus;
         }
 
+        /// <summary>
+        /// Gets or sets the value of Boiler System ID
+        /// </summary>
         public int SystemId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value of Boiler System Status
+        /// </summary>
         public BoilerStatus BoilerSystemStatus { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value of Switch status
+        /// </summary>
         public SwitchStatus InterlockSwitchStatus { get; set; }
     }
 }

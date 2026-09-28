@@ -5,14 +5,21 @@ using BoilerSystemController.PresentationLayer.View;
 
 namespace BoilerSystemController
 {
+    /// <summary>
+    /// Main class 
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Entry point of application - Create objects and inject dependencies, Subscribe to the events, and starts the application using method Run().
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
-            var boilerSystemService = new BoilerSystemService();
             var eventLogRepository = new EventLogRepository();
             var eventLogService = new EventLogService(eventLogRepository);
+            var boilerSystemService = new BoilerSystemService();
             boilerSystemService.OnStatusChanged += NotificationOperator.DisplayNotification;
             boilerSystemService.OnStatusChanged += eventLogService.WriteLogToFile;
             var consoleOperator = new ConsoleOperations(boilerSystemService, eventLogService);
@@ -23,7 +30,7 @@ namespace BoilerSystemController
         {
             if (e.ExceptionObject is Exception ex)
             {
-                Console.WriteLine($"Exception caught: {ex.Message}");
+                Console.WriteLine(string.Format(DisplayResource.ExceptionMessage, ex.Message));
             }
         }
     }
