@@ -1,4 +1,6 @@
 ﻿using System;
+using BoilerSystemController.ApplicationLayer.Service;
+using BoilerSystemController.PresentationLayer.View;
 
 namespace BoilerSystemController
 {
@@ -7,6 +9,10 @@ namespace BoilerSystemController
         public static void Main(string[] args)
         {
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
+            var boilerSystemService = new BoilerSystemService();
+            var consoleOperator = new ConsoleOperations(boilerSystemService);
+            boilerSystemService.OnStatusChanged += NotificationOperator.DisplayNotification;
+            consoleOperator.Run();
         }
 
         private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
