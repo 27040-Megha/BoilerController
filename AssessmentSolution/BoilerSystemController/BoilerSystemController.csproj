@@ -48,6 +48,7 @@
     <Compile Include="Domain\Enums\BoilerStatus.cs" />
     <Compile Include="Domain\Enums\SwitchStatus.cs" />
     <Compile Include="Domain\Model\BoilerSystem.cs" />
+    <Compile Include="Domain\Model\Result.cs" />
     <Compile Include="InfrastructureLayer\EventLogRepository.cs" />
     <Compile Include="PresentationLayer\Helper\InputValidator.cs" />
     <Compile Include="PresentationLayer\View\ConsoleOperations.cs" />
