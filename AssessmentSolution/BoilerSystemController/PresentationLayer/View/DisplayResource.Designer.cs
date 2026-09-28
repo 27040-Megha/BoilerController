@@ -61,6 +61,15 @@ namespace BoilerSystemController.PresentationLayer.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event Logs for the Boiler System Controller.
+        /// </summary>
+        internal static string EventLogHeading {
+            get {
+                return ResourceManager.GetString("EventLogHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exiting the Application, Bye!.
         /// </summary>
         internal static string ExitMessage {
@@ -75,6 +84,15 @@ namespace BoilerSystemController.PresentationLayer.View {
         internal static string InvalidChoice {
             get {
                 return ResourceManager.GetString("InvalidChoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timestamp: {0}, {1} : {2}.
+        /// </summary>
+        internal static string Log {
+            get {
+                return ResourceManager.GetString("Log", resourceCulture);
             }
         }
         
@@ -101,6 +119,15 @@ namespace BoilerSystemController.PresentationLayer.View {
         internal static string MenuOptions {
             get {
                 return ResourceManager.GetString("MenuOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No events have been logged so far.
+        /// </summary>
+        internal static string Nologs {
+            get {
+                return ResourceManager.GetString("Nologs", resourceCulture);
             }
         }
         

@@ -1,16 +1,26 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using BoilerSystemController.ApplicationLayer.Interface;
 using BoilerSystemController.Domain.Model;
 
 namespace BoilerSystemController.ApplicationLayer.Service
 {
-    public static class EventLogService
+    public class EventLogService
     {
+        private readonly IEventLogRepository _eventLogRepository;
 
-        public static Action<EventLog> OnStatusChanged;
-
-        public static void PublishEvent(EventLog eventLog)
+        public EventLogService(IEventLogRepository eventLogRepository)
         {
-            OnStatusChanged?.Invoke(eventLog);
+            this._eventLogRepository = eventLogRepository;
+        }
+        
+        public void WriteLogToFile(EventLog eventLog)
+        {
+            this._eventLogRepository.AddLogMessage(eventLog);
+        }
+
+        public IEnumerable<EventLog> GetAllLogs()
+        {
+            return this._eventLogRepository.FetchAllLogs();
         }
     }
 }

@@ -17,9 +17,9 @@ namespace BoilerSystemController.InfrastructureLayer
 
             var eventLogs = new List<EventLog>();
             var fileContent = File.ReadAllLines(filePath);
-            foreach (string line in fileContent)
+            for (int i = 1; i < fileContent.Length; i++)
             {
-                eventLogs.Add(DeserializeCSV(line));
+                eventLogs.Add(DeserializeCSV(fileContent[i]));
             }
 
             return eventLogs;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using BoilerSystemController.ApplicationLayer.Service;
 using BoilerSystemController.Domain.Enums;
 using BoilerSystemController.Domain.Model;
@@ -10,9 +11,12 @@ namespace BoilerSystemController.PresentationLayer.View
     {
         private readonly BoilerSystemService _boilerSystemService;
 
-        public ConsoleOperations(BoilerSystemService boilerSystemService)
+        private readonly EventLogService _eventlogService;
+
+        public ConsoleOperations(BoilerSystemService boilerSystemService, EventLogService eventLogService)
         {
             this._boilerSystemService = boilerSystemService;
+            this._eventlogService = eventLogService;
         }
 
         public void Run()
@@ -95,7 +99,18 @@ namespace BoilerSystemController.PresentationLayer.View
 
         private void DisplayEventLog()
         {
-            throw new NotImplementedException();
+            var eventLogs = this._eventlogService.GetAllLogs().ToList();
+            TextColor.WriteColoredLine(DisplayResource.EventLogHeading, ConsoleColor.Cyan);
+            if (eventLogs.Count == 0)
+            {
+                TextColor.WriteColoredLine(DisplayResource.Nologs, ConsoleColor.Red);
+                return;
+            }
+
+            foreach (var log in eventLogs)
+            {
+                Console.WriteLine(string.Format(DisplayResource.Log, log.Timestamp, log.EventName, log.LogMessage));
+            }
         }
 
         private void DisplayResult(Result resultObject)
