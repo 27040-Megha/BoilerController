@@ -141,6 +141,15 @@ namespace BoilerSystemController.PresentationLayer.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Press any key to continue:.
+        /// </summary>
+        internal static string PressAnyKeyMessage {
+            get {
+                return ResourceManager.GetString("PressAnyKeyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter your choice (1-7):.
         /// </summary>
         internal static string PromptChoice {

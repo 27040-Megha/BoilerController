@@ -149,6 +149,9 @@ MENU
   <data name="Nologs" xml:space="preserve">
     <value>No events have been logged so far</value>
   </data>
+  <data name="PressAnyKeyMessage" xml:space="preserve">
+    <value>Press any key to continue:</value>
+  </data>
   <data name="PromptChoice" xml:space="preserve">
     <value>Enter your choice (1-7):</value>
   </data>

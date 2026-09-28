@@ -76,8 +76,16 @@ namespace BoilerSystemController.PresentationLayer.View
                         TextColor.WriteColoredLine(DisplayResource.InvalidChoice, ConsoleColor.Red);
                         break;
                 }
+                this.WaitAndClearConsole();
             }
             while (menuChoice != MenuOptions.Exit);
+        }
+
+        private void WaitAndClearConsole()
+        {
+            TextColor.WriteColoredLine(DisplayResource.PressAnyKeyMessage, ConsoleColor.Cyan);
+            Console.ReadKey();
+            Console.Clear();
         }
 
         private void StartBoilerSystem()
