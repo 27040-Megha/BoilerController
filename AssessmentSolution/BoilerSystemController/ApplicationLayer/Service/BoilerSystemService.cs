@@ -51,26 +51,6 @@ namespace BoilerSystemController.ApplicationLayer.Service
             });
         }
 
-        private void HandleCountDown()
-        {
-            var timer2 = new System.Timers.Timer();
-            var countDown = 10000;
-            timer2.Interval = 200;
-            timer2.Start();
-            timer2.Elapsed += ((object sender, ElapsedEventArgs e) =>
-            {
-                if (this._boilerSystem.BoilerSystemStatus == BoilerStatus.PrePurge)
-                {
-                    OnPrePurgeStatus?.Invoke(countDown);
-                    countDown = countDown - 200;
-                }
-                else
-                {
-                    timer2.Stop();
-                }
-            });
-        }
-
         /// <summary>
         /// Subscribed to the Timer's Elapsed event
         /// Will be notified whenever timer is elapsed (Every 10 secs) 
@@ -198,6 +178,26 @@ namespace BoilerSystemController.ApplicationLayer.Service
             this._boilerSystem.BoilerSystemStatus = BoilerStatus.Ready;
             PublishEvent(new EventLog(DateTime.Now, "Log:", $"Boiler Status changed to {this._boilerSystem.BoilerSystemStatus}"));
             return new Result(true, $"Lockout sucessfully reset!");
+        }
+
+        private void HandleCountDown()
+        {
+            var timer2 = new System.Timers.Timer();
+            var countDown = 10000;
+            timer2.Interval = 200;
+            timer2.Start();
+            timer2.Elapsed += ((object sender, ElapsedEventArgs e) =>
+            {
+                if (this._boilerSystem.BoilerSystemStatus == BoilerStatus.PrePurge)
+                {
+                    OnPrePurgeStatus?.Invoke(countDown);
+                    countDown = countDown - 200;
+                }
+                else
+                {
+                    timer2.Stop();
+                }
+            });
         }
 
         private bool CanBoilerCycleStop()
