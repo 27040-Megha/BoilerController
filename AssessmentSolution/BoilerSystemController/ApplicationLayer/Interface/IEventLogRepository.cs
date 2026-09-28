@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using BoilerSystemController.Domain.Model;
 
 namespace BoilerSystemController.ApplicationLayer.Interface
 {
@@ -7,8 +8,8 @@ namespace BoilerSystemController.ApplicationLayer.Interface
     /// </summary>
     public interface IEventLogRepository
     {
-        void AddLogMessage(string message);
+        void AddLogMessage(EventLog eventLog);
 
-        string FetchAllLogs();
+        List<EventLog> FetchAllLogs();
     }
 }

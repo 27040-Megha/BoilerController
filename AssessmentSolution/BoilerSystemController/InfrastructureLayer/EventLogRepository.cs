@@ -1,17 +1,27 @@
-﻿using BoilerSystemController.ApplicationLayer.Interface;
+﻿using System.Collections.Generic;
+using BoilerSystemController.ApplicationLayer.Interface;
+using BoilerSystemController.Domain.Model;
 
 namespace BoilerSystemController.InfrastructureLayer
 {
     public class EventLogRepository : IEventLogRepository
     {
-        public void AddLogMessage(string message)
+        private static object _fileLock = new object();
+
+        public void AddLogMessage(EventLog eventLog)
         {
-            throw new System.NotImplementedException();
+            lock (_fileLock)
+            {
+                FileHandlingService.WriteFile(FilePath.LogFile, eventLog);
+            }
         }
 
-        public string FetchAllLogs()
+        public List<EventLog> FetchAllLogs()
         {
-            throw new System.NotImplementedException();
+            lock(_fileLock)
+            {
+                return FileHandlingService.ReadFile(FilePath.LogFile);
+            }
         }
     }
 }
