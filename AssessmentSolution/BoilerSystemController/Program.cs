@@ -21,6 +21,7 @@ namespace BoilerSystemController
             var eventLogService = new EventLogService(eventLogRepository);
             BoilerSystemService.OnStatusChanged += NotificationOperator.DisplayNotification;
             BoilerSystemService.OnStatusChanged += eventLogService.WriteLogToFile;
+            BoilerSystemService.OnPrePurgeStatus += NotificationOperator.DisplayCountDown;
             var boilerSystemService = new BoilerSystemService();
             var consoleOperator = new ConsoleOperations(boilerSystemService, eventLogService);
             consoleOperator.Run();

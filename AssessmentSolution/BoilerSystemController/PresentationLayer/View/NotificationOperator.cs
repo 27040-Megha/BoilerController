@@ -24,8 +24,26 @@ namespace BoilerSystemController.PresentationLayer.View
                 int currentleft = Console.CursorLeft;
                 int currentTop = Console.CursorTop;
                 int left = Console.WindowWidth - 45;
-                Console.SetCursorPosition(left, 0);                
+                Console.SetCursorPosition(left, 0);
                 TextColor.WriteColoredLine(eventLog.LogMessage.PadRight(45), ConsoleColor.Yellow);
+                Console.SetCursorPosition(currentleft, currentTop);
+            }
+        }
+
+        /// <summary>
+        /// SUBSCRIBER METHOD: Subscribes to the event OnPrePurgeStatus
+        /// Prints the countdown for Pre-pudge status
+        /// </summary>
+        /// <param name="countDown"></param>
+        public static void DisplayCountDown(double countDown)
+        {
+            lock (_consoleLock)
+            {
+                int currentleft = Console.CursorLeft;
+                int currentTop = Console.CursorTop;
+                int left = Console.WindowWidth - 45;
+                Console.SetCursorPosition(left, 0);
+                TextColor.WriteColoredLine($"CountDown: {countDown}", ConsoleColor.Cyan);
                 Console.SetCursorPosition(currentleft, currentTop);
             }
         }

@@ -18,6 +18,11 @@ namespace BoilerSystemController.ApplicationLayer.Service
         public static Action<EventLog> OnStatusChanged;
 
         /// <summary>
+        /// Event invoked when Boiler started and till the Pre-Purge status
+        /// </summary>
+        public static Action<double> OnPrePurgeStatus;
+
+        /// <summary>
         /// Initializes Boiler System with default status and publishes the event
         /// </summary>
         public BoilerSystemService()
@@ -31,20 +36,40 @@ namespace BoilerSystemController.ApplicationLayer.Service
         /// </summary>
         public void HandleBoilerCycle()
         {
-            var timer = new System.Timers.Timer();
-            timer.Interval = 10000;
-            timer.Start();
-            timer.Elapsed += ((object sender, ElapsedEventArgs e) =>
+            var timer1 = new System.Timers.Timer();
+            timer1.Interval = 10000;
+            timer1.Start();
+            HandleCountDown();
+            timer1.Elapsed += ((object sender, ElapsedEventArgs e) =>
             {
                 if (this.CanBoilerCycleStop())
                 {
-                    timer.Stop();
+                    timer1.Stop();
                 }
 
                 this.ChangeBoilerStatus();
             });
         }
 
+        private void HandleCountDown()
+        {
+            var timer2 = new System.Timers.Timer();
+            var countDown = 10000;
+            timer2.Interval = 200;
+            timer2.Start();
+            timer2.Elapsed += ((object sender, ElapsedEventArgs e) =>
+            {
+                if (this._boilerSystem.BoilerSystemStatus == BoilerStatus.PrePurge)
+                {
+                    OnPrePurgeStatus?.Invoke(countDown);
+                    countDown = countDown - 200;
+                }
+                else
+                {
+                    timer2.Stop();
+                }
+            });
+        }
 
         /// <summary>
         /// Subscribed to the Timer's Elapsed event
