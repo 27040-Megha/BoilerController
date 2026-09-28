@@ -24,7 +24,6 @@ namespace BoilerSystemController.PresentationLayer.View
                 int currentleft = Console.CursorLeft;
                 int currentTop = Console.CursorTop;
                 int left = Console.WindowWidth - 45;
-                int height = Console.WindowHeight;
                 Console.SetCursorPosition(left, 0);                
                 TextColor.WriteColoredLine(eventLog.LogMessage.PadRight(45), ConsoleColor.Yellow);
                 Console.SetCursorPosition(currentleft, currentTop);

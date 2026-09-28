@@ -50,7 +50,6 @@ namespace BoilerSystemController.PresentationLayer.View
 
                 menuChoice = (MenuOptions)choice;
                 this.HandleSwitchCase(menuChoice);
-                // this.WaitAndClearConsole();
             }
             while (menuChoice != MenuOptions.Exit);
         }
@@ -84,13 +83,6 @@ namespace BoilerSystemController.PresentationLayer.View
                     TextColor.WriteColoredLine(DisplayResource.InvalidChoice, ConsoleColor.Red);
                     break;
             }
-        }
-
-        private void WaitAndClearConsole()
-        {
-            TextColor.WriteColoredLine(DisplayResource.PressAnyKeyMessage, ConsoleColor.Cyan);
-            Console.ReadKey();
-            Console.Clear();
         }
 
         private void StartBoilerSystem()
